@@ -4,6 +4,8 @@ const helmet = require('helmet');
 const morgan = require('morgan'); 
 
 const usersRouter = require('./users/users-router');
+const authRouter = require('./auth/auth-router');
+
 const server = express();
 
 //GLOBAL MIDDLEWARE
@@ -13,6 +15,7 @@ server.use(cors());
 server.use(morgan('tiny')); 
 
 //Routes
+server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
 
 //Catch All End Point 
