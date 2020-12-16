@@ -12,9 +12,13 @@ const makeToken = (user) => {
     username: user.username,
     department: user.department
   };
+  //reference docs for options - alot you can do here
   const options = {
-    expiresIn: '1200s'
+    expiresIn: '1h'
   };
+  //Asyncronus if a call back is supplied - called with er
+  //converts payload to a string for us 
+  
   return jwt.sign(payload, jwtSecret, options);
 };
 
@@ -39,6 +43,7 @@ router.post('/login', async (req, res) => {
 
   try {
     const user = await User.findBy({ username: username }); 
+    //compareSync is a syncronous tes of string agains hash - verifying password 
     if (user && bcryptjs.compareSync(password, user.password)) {
       const token = makeToken(user);
       res.status(200).json({

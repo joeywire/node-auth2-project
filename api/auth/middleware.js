@@ -13,7 +13,6 @@ const validateCreds = (req, res, next) => {
 
 const restrictAccess = (req, res, next) => {
   const token = req.headers.authorization;
-
   if (!token) {
     res.status(401).json('No Token Provided');
   } else {
