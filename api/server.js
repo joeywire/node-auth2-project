@@ -5,6 +5,7 @@ const morgan = require('morgan');
 
 const usersRouter = require('./users/users-router');
 const authRouter = require('./auth/auth-router');
+const { restrictAccess } = require('./auth/middleware');
 
 const server = express();
 
@@ -16,7 +17,7 @@ server.use(morgan('tiny'));
 
 //Routes
 server.use('/api/auth', authRouter);
-server.use('/api/users', usersRouter);
+server.use('/api/users',restrictAccess, usersRouter);
 
 //Catch All End Point 
 server.get('/', (req, res) => {
