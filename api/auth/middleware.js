@@ -31,7 +31,16 @@ const restrictAccess = (req, res, next) => {
   }
 };
 
+const adminAccessOnly = (req, res, next) => {
+  if (req.decodedToken.department === 'admin') {
+    next()
+  } else {
+    res.status(403).json({ message: "You do not have access to this information"});
+  }
+};
+
 module.exports = {
   validateCreds, 
-  restrictAccess
+  restrictAccess,
+  adminAccessOnly
 }
